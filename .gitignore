@@ -4,3 +4,4 @@
 TestResults/TestResults.trx
 **/TestResults
 **/coveragereport
+**/**/node_modules

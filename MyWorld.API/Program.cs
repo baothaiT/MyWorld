@@ -18,6 +18,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
+// Add CORS for all origins
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +43,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 app.UseHttpsRedirection();
+
+// Use CORS
+app.UseCors();
+
 app.MapHealthChecks("/health");
 app.UseRouting()
     .UseEndpoints(config =>
