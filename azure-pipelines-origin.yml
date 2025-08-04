@@ -1,0 +1,52 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT: true
+  ASPNETCORE_ENVIRONMENT: 'Development'
+  # Add SSL bypass options for development/testing
+  DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER: false
+  HTTPCLIENT_SSL_VERIFY: false
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+  env:
+    DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT: true
+    NODE_TLS_REJECT_UNAUTHORIZED: 0
+    # Additional SSL bypass options
+    DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER: false
+    HTTPCLIENT_SSL_VERIFY: false
+    ASPNETCORE_ENVIRONMENT: Development
+    # Add these for localhost SSL bypass
+    DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP3SUPPORT: false
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
+    DOTNET_SYSTEM_NET_HTTP_USEDEFAULTCREDENTIALS: false
+    # Disable SSL validation completely for testing
+    DOTNET_SYSTEM_NET_SECURITY_USELEGACYDEFAULTSSLCERTIFICATEVALIDATION: true

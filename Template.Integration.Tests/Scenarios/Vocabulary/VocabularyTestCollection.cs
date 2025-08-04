@@ -1,0 +1,11 @@
+using Template.Integration.Tests.Common.Configurations;
+
+namespace Template.Integration.Tests.Scenarios.Vocabulary;
+
+[CollectionDefinition(nameof(VocabularyTestCollection))]
+public class VocabularyTestCollection : ICollectionFixture<TestServer>
+{
+    // This class has no code, and is never created. Its purpose is simply
+    // to be the place to apply [CollectionDefinition] and all the
+    // ICollectionFixture<> interfaces.
+}
