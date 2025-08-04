@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
+using System;
 
-namespace MyWorld.ServiceDefaults.Common.Extensions;
+namespace MyWorld.AppHost.Common.Extensions;
 
 public static class ConfigurationExtension
 {

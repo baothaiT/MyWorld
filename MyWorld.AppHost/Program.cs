@@ -1,11 +1,24 @@
-using MyWorld.AppHost.Common;
+using Aspire.Hosting;
 using MyWorld.AppHost.Common.Contants.Enums;
+using MyWorld.AppHost.Common.Extensions;
 
 
 var builder = DistributedApplication.CreateBuilder(args);
+var configuration = ConfigurationExtension.GetConfigurations();
 
-var sql = builder.AddSqlServer("sql", port: 1444)
-                 .WithLifetime(ContainerLifetime.Persistent);
+
+// Create a parameter resource for SQL Server password
+var sqlPassword = builder.AddParameter(
+    name: "SqlServerPassword",
+    configuration.GetSection("SqlServerPassword").Value ?? "",
+    secret: true); // Maybe bug
+
+var sql = builder.AddSqlServer(
+    name: "sql",
+    port: 1444,
+    password: sqlPassword
+    )
+    .WithLifetime(ContainerLifetime.Persistent);
 
 var MyWorldDb = sql.AddDatabase("MyWorldDb");
 
