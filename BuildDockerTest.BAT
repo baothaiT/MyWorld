@@ -1,14 +1,14 @@
 @echo off
 echo Building Docker test image...
-docker build -t template-tests -f TestsDockerfile .
+docker build -t MyWorld-tests -f TestsDockerfile .
 
 echo.
 echo Running tests...
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock template-tests
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock MyWorld-tests
 
 echo.
 echo Extracting test results...
-docker run --rm -v "%cd%/TestResults:/host" template-tests sh -c "cp -r /app/TestResults/* /host/ 2>/dev/null || echo 'No results to copy'"
+docker run --rm -v "%cd%/TestResults:/host" MyWorld-tests sh -c "cp -r /app/TestResults/* /host/ 2>/dev/null || echo 'No results to copy'"
 
 echo.
 echo Checking for test results...

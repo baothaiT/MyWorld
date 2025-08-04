@@ -1,6 +1,6 @@
 @echo off
 echo Building Docker application image...
-docker build -t template-app .
+docker build -t MyWorld-app .
 
 echo.
 echo Running application...
@@ -10,7 +10,7 @@ docker run --rm ^
   -e ASPNETCORE_ENVIRONMENT=Development ^
   -e ASPNETCORE_URLS=http://+:8080 ^
   -v "%cd%/logs:/app/logs" ^
-  template-app
+  MyWorld-app
 
 echo Done.
 pause

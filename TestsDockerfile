@@ -29,20 +29,20 @@ RUN dotnet dev-certs https --clean && \
     dotnet dev-certs https --trust --quiet
 
 # Copy solution and all projects
-COPY ["Template.sln", "./"]
+COPY ["MyWorld.sln", "./"]
 COPY ["Directory.Packages.props", "./"]
-COPY ["Template.API/", "Template.API/"]
-COPY ["Template.Application/", "Template.Application/"]
-COPY ["Template.Domain/", "Template.Domain/"]
-COPY ["Template.Infra/", "Template.Infra/"]
-COPY ["Template.Integration.Tests/", "Template.Integration.Tests/"]
-COPY ["Template.ServiceDefault/", "Template.ServiceDefault/"]
-COPY ["Template.AppHost/", "Template.AppHost/"]
+COPY ["MyWorld.API/", "MyWorld.API/"]
+COPY ["MyWorld.Application/", "MyWorld.Application/"]
+COPY ["MyWorld.Domain/", "MyWorld.Domain/"]
+COPY ["MyWorld.Infra/", "MyWorld.Infra/"]
+COPY ["MyWorld.Integration.Tests/", "MyWorld.Integration.Tests/"]
+COPY ["MyWorld.ServiceDefault/", "MyWorld.ServiceDefault/"]
+COPY ["MyWorld.AppHost/", "MyWorld.AppHost/"]
 
 # Restore and build
-RUN dotnet clean "Template.sln"
-RUN dotnet restore "Template.sln"
-RUN dotnet build "Template.sln" -c Release
+RUN dotnet clean "MyWorld.sln"
+RUN dotnet restore "MyWorld.sln"
+RUN dotnet build "MyWorld.sln" -c Release
 
 # Run unit tests only (exclude integration tests that require orchestration)
 FROM build AS test
@@ -53,7 +53,7 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 ENV ASPIRE_ALLOW_UNSECURED_CONTAINERREQUESTS=true
 
 # Run only unit tests (exclude all integration tests)
-RUN dotnet test "Template.Integration.Tests/Template.Integration.Tests.csproj" \
+RUN dotnet test "MyWorld.Integration.Tests/MyWorld.Integration.Tests.csproj" \
     --filter "TestCategory!=Integration" \
     --logger "trx;LogFileName=TestResults.trx" \
     --results-directory /app/TestResults \
