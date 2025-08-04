@@ -1,4 +1,3 @@
-using Aspire.Hosting;
 using MyWorld.AppHost.Common.Contants.Enums;
 using MyWorld.AppHost.Common.Extensions;
 
@@ -6,8 +5,6 @@ using MyWorld.AppHost.Common.Extensions;
 var builder = DistributedApplication.CreateBuilder(args);
 var configuration = ConfigurationExtension.GetConfigurations();
 
-
-// Create a parameter resource for SQL Server password
 var sqlPassword = builder.AddParameter(
     name: "SqlServerPassword",
     configuration.GetSection("SqlServerPassword").Value ?? "",
@@ -21,7 +18,6 @@ var sql = builder.AddSqlServer(
     .WithLifetime(ContainerLifetime.Persistent);
 
 var MyWorldDb = sql.AddDatabase("MyWorldDb");
-
 
 builder.AddProject<Projects.MyWorld_API>(nameof(ServiceNameEnum.MyWorldAPI))
     .WaitFor(MyWorldDb)
