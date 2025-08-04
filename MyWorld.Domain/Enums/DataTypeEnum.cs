@@ -1,6 +1,6 @@
 using System;
 
-namespace MyWorld.Domain.Entities.Enums;
+namespace MyWorld.Domain.Enums;
 
 public enum DataTypeEnum
 {

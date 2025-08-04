@@ -1,6 +1,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MyWorld.Domain.Entities;
+using MyWorld.Domain.Enums;
 using MyWorld.Infra;
 
 namespace MyWorld.API.Configs;
@@ -84,15 +86,25 @@ public class DbMigrationJob : IHostedService
         {
             var seedData = new List<VocabularyEntity>
             {
-                new() { Id = Guid.NewGuid(), Key = "Welcome", Value = "Hello and welcome to our application!" },
-                new() { Id = Guid.NewGuid(), Key = "Goodbye", Value = "Thank you for using our application!" },
-                new() { Id = Guid.NewGuid(), Key = "Error", Value = "An error occurred. Please try again." },
-                new() { Id = Guid.NewGuid(), Key = "Success", Value = "Operation completed successfully!" }
+                new VocabularyEntity(
+                    key: "Welcome",
+                    value: "Xin chào",
+                    dataTypeEnum: DataTypeEnum.Migration),
+                new VocabularyEntity(
+                    key: "Goodbye",
+                    value: "Tạm biệt",
+                    dataTypeEnum: DataTypeEnum.Migration),
+                new VocabularyEntity(
+                    key: "Error",
+                    value: "Lỗi",
+                    dataTypeEnum: DataTypeEnum.Migration),
+                new VocabularyEntity(
+                    key: "Success",
+                    value: "Thành công",
+                    dataTypeEnum: DataTypeEnum.Migration)
             };
-
             await context.Vocabularies.AddRangeAsync(seedData, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-            
             _logger.LogInformation("Vocabulary seed data added successfully.");
         }
         else

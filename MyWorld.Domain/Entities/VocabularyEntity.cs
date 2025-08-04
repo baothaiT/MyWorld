@@ -1,8 +1,27 @@
-﻿namespace MyWorld.Domain.Entities;
+﻿using MyWorld.Domain.Enums;
+
+namespace MyWorld.Domain.Entities;
 
 public class VocabularyEntity : BaseEntity
 {
-    public string Key { get; set; } = string.Empty;
-    public string Value { get; set; } = string.Empty;
+    internal VocabularyEntity()
+    {
+    }   
+    public VocabularyEntity(
+        string key,
+        string value,
+        DataTypeEnum dataTypeEnum
+
+    ) : base(
+        id: Guid.NewGuid(),
+        dataType: dataTypeEnum
+        )
+    {
+        Key = key;
+        Value = value;
+    }
+
+    public string Key { get; private set; } = string.Empty;
+    public string Value { get; private set; } = string.Empty;
 }
 
