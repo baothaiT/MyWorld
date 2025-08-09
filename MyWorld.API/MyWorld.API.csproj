@@ -21,7 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyWorld.Application\MyWorld.Application.csproj" />
     <ProjectReference Include="..\MyWorld.Infra\MyWorld.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Authentication\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
 
 </Project>

@@ -7,18 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyWorld.Domain\MyWorld.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="ExternalServices\" />
+    <Folder Include="Identity\" />
+    <Folder Include="Messaging\" />
+    <Folder Include="Persistence\" />
   </ItemGroup>
 
 </Project>

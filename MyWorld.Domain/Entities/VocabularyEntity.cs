@@ -10,7 +10,7 @@ public class VocabularyEntity : BaseEntity
     public VocabularyEntity(
         string key,
         string value,
-        DataTypeEnum dataTypeEnum
+        DataTypeEnum dataTypeEnum  = DataTypeEnum.None
 
     ) : base(
         id: Guid.NewGuid(),
