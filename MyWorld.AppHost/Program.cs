@@ -29,9 +29,12 @@ var myWorldMasterDataAPI = builder.AddProject<Projects.MyWorld_MasterDataAPI>(na
     // .WithReference(MyWorldDb)
     ;
 
+var myWorld_Worker = builder.AddProject<Projects.MyWorld_Worker>(nameof(ServiceNameEnum.MyWorldWorker))
+    // .WaitFor(MyWorldDb)
+    // .WithReference(MyWorldDb)
+    ;
+
 builder.AddProject<Projects.MyWorld_HealthUI>(nameof(ServiceNameEnum.MyWorldHealthUI))
-    .WaitFor(MyWorldDb)
-    .WithReference(MyWorldDb)
     ;
 
 // React UI
@@ -41,8 +44,6 @@ builder.AddExecutable("react-ui", "npm", workingDirectory: "../MyWorld.AdminUI/m
     .WithHttpEndpoint(port: 3001, name: "http") // React dev server default
     .WaitFor(myWorldAPI)
     .WithReference(myWorldAPI)
-    .WaitFor(myWorldMasterDataAPI)
-    .WithReference(myWorldMasterDataAPI);
     ;
 
 builder.Build().Run();

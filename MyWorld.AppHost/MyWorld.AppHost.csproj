@@ -24,6 +24,7 @@
     <ProjectReference Include="..\MyWorld.API\MyWorld.API.csproj" />
     <ProjectReference Include="..\MyWorld.MasterDataAPI\MyWorld.MasterDataAPI.csproj" />
     <ProjectReference Include="..\MyWorld.ServiceDefault\MyWorld.ServiceDefault.csproj" />
+    <ProjectReference Include="..\MyWorld.Worker\MyWorld.Worker.csproj" />
   </ItemGroup>
 
 </Project>
