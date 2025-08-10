@@ -25,7 +25,7 @@ public class UserService : IUserService
         return await _vocabularyRepository.GetAllAsync();
     }
 
-    public async Task<VocabularyEntity?> GetVocabularyByIdAsync(int id)
+    public async Task<VocabularyEntity?> GetVocabularyByIdAsync(Guid id)
     {
         return await _vocabularyRepository.GetByIdAsync(id);
     }
@@ -48,9 +48,14 @@ public class UserService : IUserService
         await _vocabularyRepository.UpdateAsync(vocabulary);
     }
 
-    public async Task DeleteVocabularyAsync(int id)
+    public async Task DeleteVocabularyAsync(Guid id)
     {
         await _vocabularyRepository.DeleteAsync(id);
+    }
+
+    public async Task DeleteVocabularyAsync(string key)
+    {
+        await _vocabularyRepository.DeleteAsync(key);
     }
 
 }

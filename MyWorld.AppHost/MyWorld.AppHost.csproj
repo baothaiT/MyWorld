@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyWorld.HealthUI\MyWorld.HealthUI.csproj" />
     <ProjectReference Include="..\MyWorld.API\MyWorld.API.csproj" />
+    <ProjectReference Include="..\MyWorld.MasterDataAPI\MyWorld.MasterDataAPI.csproj" />
     <ProjectReference Include="..\MyWorld.ServiceDefault\MyWorld.ServiceDefault.csproj" />
   </ItemGroup>
 

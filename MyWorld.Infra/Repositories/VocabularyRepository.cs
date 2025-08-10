@@ -18,23 +18,23 @@ public class VocabularyRepository : IVocabularyRepository
 		return await _context.Vocabularies.ToListAsync();
 	}
 
-	public async Task<VocabularyEntity?> GetByIdAsync(int id)
+	public async Task<VocabularyEntity?> GetByIdAsync(Guid id)
 	{
 		return await _context.Vocabularies.FindAsync(id);
 	}
 
-    public async Task<VocabularyEntity> GetByKeyAsync(string key)
-    {
-        return await _context.Vocabularies.FirstOrDefaultAsync(
-            x => x.Key == key
-        );
+	public async Task<VocabularyEntity> GetByKeyAsync(string key)
+	{
+		return await _context.Vocabularies.FirstOrDefaultAsync(
+			x => x.Key == key
+		);
 	}
 
 	public async Task AddAsync(VocabularyEntity vocabulary)
-    {
-        _context.Vocabularies.Add(vocabulary);
-        await _context.SaveChangesAsync();
-    }
+	{
+		_context.Vocabularies.Add(vocabulary);
+		await _context.SaveChangesAsync();
+	}
 
 	public async Task UpdateAsync(VocabularyEntity vocabulary)
 	{
@@ -42,9 +42,19 @@ public class VocabularyRepository : IVocabularyRepository
 		await _context.SaveChangesAsync();
 	}
 
-	public async Task DeleteAsync(int id)
+	public async Task DeleteAsync(Guid id)
 	{
 		var entity = await _context.Vocabularies.FindAsync(id);
+		if (entity != null)
+		{
+			_context.Vocabularies.Remove(entity);
+			await _context.SaveChangesAsync();
+		}
+	}
+	
+	public async Task DeleteAsync(string key)
+	{
+		var entity = await _context.Vocabularies.FirstOrDefaultAsync(x => x.Key == key);
 		if (entity != null)
 		{
 			_context.Vocabularies.Remove(entity);

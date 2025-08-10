@@ -39,5 +39,36 @@ public class VocabularyController : ControllerBase
         [FromServices] IUserService service
     )
         => Ok(await service.AddVocabularyAsync(vocabulary));
+
+    [HttpPut("{vocabularyKey}")]
+    public async Task<IActionResult> Update(
+        [FromRoute] string vocabularyKey,
+        [FromBody] VocabularyDto vocabulary,
+        [FromServices] IUserService service
+    )
+    {
+        vocabulary.Key = vocabularyKey;
+        return Ok(await service.AddVocabularyAsync(vocabulary));
+    }
+
+    [HttpDelete("{key}:vocabularyKey")]
+    public async Task<IActionResult> DeleteByKey(
+        [FromRoute] string key,
+        [FromServices] IUserService service
+    )
+    {
+        await service.DeleteVocabularyAsync(key);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}:vocabularyId")]
+    public async Task<IActionResult> DeleteById(
+        [FromRoute] string key,
+        [FromServices] IUserService service
+    )
+    {
+        await service.DeleteVocabularyAsync(key);
+        return NoContent();
+    }
 }
 

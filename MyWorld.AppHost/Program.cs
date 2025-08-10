@@ -15,13 +15,18 @@ var sql = builder.AddSqlServer(
     port: 1444,
     password: sqlPassword
     )
-    .WithLifetime(ContainerLifetime.Persistent);
+    .WithLifetime(ContainerLifetime.Session);
 
 var MyWorldDb = sql.AddDatabase("MyWorldDb");
 
 var myWorldAPI = builder.AddProject<Projects.MyWorld_API>(nameof(ServiceNameEnum.MyWorldAPI))
     .WaitFor(MyWorldDb)
     .WithReference(MyWorldDb)
+    ;
+
+var myWorldMasterDataAPI = builder.AddProject<Projects.MyWorld_MasterDataAPI>(nameof(ServiceNameEnum.MyWorldMasterDataAPI))
+    // .WaitFor(MyWorldDb)
+    // .WithReference(MyWorldDb)
     ;
 
 builder.AddProject<Projects.MyWorld_HealthUI>(nameof(ServiceNameEnum.MyWorldHealthUI))
@@ -35,6 +40,9 @@ builder.AddExecutable("react-ui", "npm", workingDirectory: "../MyWorld.AdminUI/m
     .WithArgs("start")
     .WithHttpEndpoint(port: 3001, name: "http") // React dev server default
     .WaitFor(myWorldAPI)
-    .WithReference(myWorldAPI);
+    .WithReference(myWorldAPI)
+    .WaitFor(myWorldMasterDataAPI)
+    .WithReference(myWorldMasterDataAPI);
+    ;
 
 builder.Build().Run();

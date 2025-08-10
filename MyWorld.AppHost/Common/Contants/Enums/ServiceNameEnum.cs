@@ -3,5 +3,6 @@
 public enum ServiceNameEnum
 {
     MyWorldAPI,
-    MyWorldHealthUI
+    MyWorldHealthUI,
+    MyWorldMasterDataAPI
 }

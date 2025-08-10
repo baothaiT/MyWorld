@@ -1,0 +1,6 @@
+@MyWorld.MasterDataAPI_HostAddress = http://localhost:5282
+
+GET {{MyWorld.MasterDataAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
